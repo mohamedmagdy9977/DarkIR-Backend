@@ -1,0 +1,68 @@
+services:
+  postgres:
+    build:
+      context: ./Database
+      dockerfile: Dockerfile.postgres
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - ./Database/.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - api-network
+
+  pgadmin:
+    build:
+      context: ./Database
+      dockerfile: Dockerfile.pgadmin
+    container_name: pgadmin
+    restart: always
+    env_file:
+      - ./Database/.env
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - api-network
+
+  api-gateway:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - auth-service
+    networks:
+      - api-network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx
+
+  auth-service:
+    build:
+      context: ./Authentication
+      dockerfile: Dockerfile.auth
+    env_file:
+      - ./Database/.env
+      - ./Authentication/.env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    networks:
+      - api-network
+    depends_on:
+      - postgres
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  nginx_logs:
+  pgdata:
+    name: database_pgdata

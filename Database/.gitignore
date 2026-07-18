@@ -1,0 +1,4 @@
+# Environment / secrets — keep examples tracked
+.env
+.env.*
+!.env.example

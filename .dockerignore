@@ -1,0 +1,30 @@
+# Root build context (if used later). Per-service contexts also have their own .dockerignore.
+
+# Secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Git / IDE
+.git/
+.vscode/
+.idea/
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Local runtime / media not needed for image builds
+*.log
+*.db
+Source/
+Target/
+DarkIR/videos/
+DarkIR/images/
+DarkIR/models/
+DarkIR/data/datasets/

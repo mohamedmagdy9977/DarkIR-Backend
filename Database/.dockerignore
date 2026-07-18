@@ -1,0 +1,12 @@
+# Secrets — injected at runtime via compose env_file
+.env
+.env.*
+!.env.example
+
+# Local junk
+.vscode/
+.idea/
+.DS_Store
+.git/
+.gitignore
+*.md

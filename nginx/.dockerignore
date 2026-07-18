@@ -1,0 +1,9 @@
+# Local junk
+.vscode/
+.idea/
+.DS_Store
+.git/
+.gitignore
+*.md
+.env
+.env.*
