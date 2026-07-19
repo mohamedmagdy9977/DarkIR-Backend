@@ -11,8 +11,8 @@ from DarkIR.inference_video import run_low_light_video_inference
 model: LoadedModel = load_ready_model()
 
 # Run the inference
-run_low_light_img_inference(model, "Source/input.png", "Target/output.png")
-run_low_light_video_inference(model, "Source/input.mp4", "Target/output.mp4")
+run_low_light_img_inference("Source/input.png", "Target/output.png",model)
+run_low_light_video_inference("Source/input.mp4", "Target/output.mp4",model)
 
 # Shutdown the model
 shutdown_ready_model()
